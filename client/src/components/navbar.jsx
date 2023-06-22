@@ -1,13 +1,9 @@
 // import React from "react";
-// import Bootstrap from "react-bootstrap";
 
-// export default Navbar = () => {
+// export default function Navbar() {
 //   return (
 //     <>
-//       <div>
-//
-//       </div>
-//       ;
+//       <Navbar>Home</Navbar>;
 //     </>
 //   );
-// };
+// }

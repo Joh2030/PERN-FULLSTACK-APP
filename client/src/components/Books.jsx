@@ -1,10 +1,12 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import Pagination from "./components/Pagination";
+
 import { format } from "date-fns";
-import "./App.css";
+import "../App";
+import { useNavigate } from "react-router-dom";
 
 function Books() {
+  const navigate = useNavigate();
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
@@ -17,6 +19,18 @@ function Books() {
         console.log(err);
       });
   }, []);
+
+  function deleteBtn(e, id) {
+    e.preventDefault();
+    axios
+      .delete(`http://localhost:3000/api/books/${id}`)
+      .then((res) => {
+        setBooks(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 
   return (
     <>
@@ -35,6 +49,22 @@ function Books() {
             </li>
           ))}
         </ul>
+      </div>
+      <div
+        className="navigate_btn"
+        onClick={() => {
+          navigate(`/api/books/${book.id}`);
+        }}
+      >
+        More Details
+      </div>
+      <div
+        className="delete-btn"
+        onClick={(e) => {
+          deleteBtn(e, book.id);
+        }}
+      >
+        Delete
       </div>
     </>
   );
