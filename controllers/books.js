@@ -3,15 +3,12 @@ const pool = require("../db");
 
 const getBooks = async (req, res) => {
   try {
-    const { limit, skip } = req.query;
-    const query = `SELECT *  FROM books  LIMIT $1  OFFSET $2 `;
+    const limit = req.query.limit || 30;
+    const skip = req.query.skip || 0;
+    const query = `SELECT *  FROM books  LIMIT $1 OFFSET $2`;
     const values = [limit, skip];
-
-    const { rows, rowCount } = await pool.query(
-      // "SELECT * FROM books;"
-      query,
-      values
-    );
+    // const result = await pool.query(`SELECT *  FROM books`);
+    const { rows } = await pool.query(query, values);
     res.json(rows);
   } catch (error) {
     console.log(error.message);

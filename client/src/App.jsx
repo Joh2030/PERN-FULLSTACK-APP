@@ -14,18 +14,14 @@ function App() {
     <>
       <div>
         <NavLink to="/">Home</NavLink>
-        <NavLink to="/api/books">Books</NavLink>
+        <NavLink to="/books">Books</NavLink>
       </div>
 
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/api/books" element={<Books />} />
-        <Route path="/api/books/:id" element={<BookDetails />} />
+        <Route path="/books" element={<Books />} />
+        <Route path="/books/:id" element={<BookDetails />} />
       </Routes>
-
-      <div>
-        <h1>Welcome to the Home Library App</h1>
-      </div>
     </>
   );
 }

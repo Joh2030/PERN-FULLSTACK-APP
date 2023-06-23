@@ -1,13 +1,15 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-
 import { format } from "date-fns";
 import "../App";
 import { useNavigate } from "react-router-dom";
+import Pagination from "./Pagination";
 
 function Books() {
   const navigate = useNavigate();
   const [books, setBooks] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const booksPerPage = 5;
 
   useEffect(() => {
     axios
@@ -18,7 +20,7 @@ function Books() {
       .catch((err) => {
         console.log(err);
       });
-  }, []);
+  }, [currentPage]);
 
   function deleteBtn(e, id) {
     e.preventDefault();
@@ -32,39 +34,60 @@ function Books() {
       });
   }
 
+  const indexOfLastBook = currentPage * booksPerPage;
+  const indexOfFirstBook = indexOfLastBook - booksPerPage;
+  const currentBooks = books.slice(indexOfFirstBook, indexOfLastBook);
+
+  const nextPage = () => {
+    setCurrentPage(currentPage + 1);
+  };
+
+  const prevPage = () => {
+    setCurrentPage(currentPage - 1);
+  };
+
   return (
     <>
       <div>
         <h1>Book List</h1>
         <ul>
-          {books.map((book) => (
-            <li key={book.id}>
+          {currentBooks.map((book) => (
+            <li className="book-div" key={book.id}>
               <h3>Book Title: {book.title}</h3>
               <p>Author: {book.author}</p>
               <p>Description: {book.description}</p>
               <p>Category: {book.category}</p>
-              {/* <p>Published At: {format(new Date(book.publishedAt),'YYYY-MM-DD')}</p> */}
               {book.isactive ? <p>Active</p> : <p>NotActive</p>}
               <img src={book.cover_url} alt="Book Cover" />
+              <div>
+                <button
+                  className="navigate_btn"
+                  onClick={() => {
+                    navigate(`/api/books/${book.id}`);
+                  }}
+                >
+                  Info
+                </button>
+                <button
+                  className="delete-btn"
+                  onClick={(e) => {
+                    deleteBtn(e, book.id);
+                  }}
+                >
+                  Delete
+                </button>
+              </div>
             </li>
           ))}
         </ul>
-      </div>
-      <div
-        className="navigate_btn"
-        onClick={() => {
-          navigate(`/api/books/${book.id}`);
-        }}
-      >
-        More Details
-      </div>
-      <div
-        className="delete-btn"
-        onClick={(e) => {
-          deleteBtn(e, book.id);
-        }}
-      >
-        Delete
+        {books.length > 0 && (
+          <Pagination
+            next={currentPage * booksPerPage < books.length}
+            previous={currentPage > 1}
+            onNext={nextPage}
+            onPrevious={prevPage}
+          />
+        )}
       </div>
     </>
   );
