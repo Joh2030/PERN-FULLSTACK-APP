@@ -15,8 +15,12 @@ body {
   text-align: center;
 }
 .book-div {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
   background: purple;
   margin-bottom: 15px;
+  width: 30%;
 }
 
 @keyframes logo-spin {
