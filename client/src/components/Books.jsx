@@ -9,6 +9,7 @@ function Books() {
   const navigate = useNavigate();
   const [books, setBooks] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
+
   const booksPerPage = 5;
 
   useEffect(() => {
@@ -33,7 +34,7 @@ function Books() {
         console.log(err);
       });
   }
-
+  //revisit this part of code
   const indexOfLastBook = currentPage * booksPerPage;
   const indexOfFirstBook = indexOfLastBook - booksPerPage;
   const currentBooks = books.slice(indexOfFirstBook, indexOfLastBook);
@@ -80,7 +81,7 @@ function Books() {
             </li>
           ))}
         </ul>
-        {books.length > 0 && (
+        {books.length > 0 && ( // Check if there are books to display
           <Pagination
             next={currentPage * booksPerPage < books.length}
             previous={currentPage > 1}
