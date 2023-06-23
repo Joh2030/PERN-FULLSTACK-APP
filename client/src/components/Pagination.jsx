@@ -1,10 +1,20 @@
 export default function Pagination({ next, previous, onNext, onPrevious }) {
   return (
     <div className="pagination">
-      <button disabled={!previous} onClick={onPrevious}>
+      <button
+        type="button"
+        className="btn btn-light m-2"
+        disabled={!previous}
+        onClick={onPrevious}
+      >
         Prev
       </button>
-      <button disabled={!next} onClick={onNext}>
+      <button
+        type="button"
+        className="btn btn-light m-2"
+        disabled={!next}
+        onClick={onNext}
+      >
         Next
       </button>
     </div>

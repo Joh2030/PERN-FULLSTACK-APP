@@ -20,7 +20,10 @@ body {
   flex-direction: column;
   background: purple;
   margin-bottom: 15px;
-  width: 30%;
+  
+}
+.pagination {
+justify-content: center;
 }
 
 @keyframes logo-spin {

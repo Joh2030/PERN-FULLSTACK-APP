@@ -62,7 +62,8 @@ function Books() {
               <img src={book.cover_url} alt="Book Cover" />
               <div>
                 <button
-                  className="navigate_btn"
+                  type="button"
+                  className="btn btn-light m-2 navigate_btn"
                   onClick={() => {
                     navigate(`/api/books/${book.id}`);
                   }}
@@ -70,7 +71,8 @@ function Books() {
                   Info
                 </button>
                 <button
-                  className="delete-btn"
+                  type="button"
+                  className="btn btn-light delete-btn"
                   onClick={(e) => {
                     deleteBtn(e, book.id);
                   }}
